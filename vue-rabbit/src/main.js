@@ -9,12 +9,6 @@ import router from './router'
 // 引入初始化樣式文件
 import '@/styles/common.scss'
 
-import { getCategory } from '@/apis/test'
-
-getCategory().then((result) => {
-  console.log(result)
-})
-
 const app = createApp(App)
 
 app.use(createPinia())

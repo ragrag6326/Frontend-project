@@ -1,14 +1,31 @@
-<script setup></script>
+<script setup>
+import { getCategoryAPI } from '@/apis/layout'
+import { ref } from 'vue'
+import { useRoute, RouterLink } from 'vue-router'
+import { onMounted } from 'vue'
+
+const categoryList = ref([])
+
+const getCategory = async () => {
+  const res = await getCategoryAPI()
+
+  categoryList.value = res.result
+}
+
+onMounted(() => {
+  getCategory()
+})
+</script>
 
 <template>
   <header class="app-header">
     <div class="container">
       <h1 class="logo">
-        <RouterLink to="/">小兔鲜</RouterLink>
+        <RouterLink to="/">小兔鮮</RouterLink>
       </h1>
-      <ul class="app-header-nav">
-        <li class="home">
-          <RouterLink active-class="active" :to="`/category/`"></RouterLink>
+      <ul class="app-hedaer-nav">
+        <li class="home" v-for="item in categoryList" :key="item.id">
+          <RouterLink active-class="active" :to="`/`">{{ item.name }}</RouterLink>
         </li>
       </ul>
       <div class="search">
@@ -48,6 +65,7 @@
     padding-left: 40px;
     position: relative;
     z-index: 998;
+    flex-direction: row; /* 明确指定水平排列 */
 
     li {
       margin-right: 40px;
