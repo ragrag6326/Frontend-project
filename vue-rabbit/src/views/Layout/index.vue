@@ -1,7 +1,24 @@
+<script>
+import LayoutNav from '@/views/Layout/components/LayoutNav.vue'
+import LayoutHeader from '@/views/Layout/components/LayoutHeader.vue'
+import LayoutFooter from './components/LayoutFooter.vue'
+
+export default {
+  components: {
+    LayoutNav,
+    LayoutHeader,
+    LayoutFooter,
+  },
+}
+</script>
+
 <template>
   <div>
-    我是 Layout
-    <!-- 二級路由出口 -->
+    <LayoutNav />
+    <LayoutHeader />
     <RouterView />
+    <LayoutFooter />
   </div>
 </template>
+
+<style scoped lang="scss"></style>
