@@ -1,25 +1,32 @@
 <script setup>
 import { useScroll } from '@vueuse/core'
+import { useCategoryStore } from '@/stores/category'
 const { y } = useScroll(window)
+
+// 使用 pinia 中的數據
+
+const categoryStore = useCategoryStore()
 </script>
 
 <template>
   <!-- 核心逻辑：根据滚动距离判断当前show类名是否显示，大于78显示，小于78，不显示-->
   <!-- <div class="app-header-sticky" :class="{ show: y > 78 }"> -->
   <div class="app-header-sticky" :class="{ show: y > 78 }">
-    {{ y }}
     <div class="container">
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
       <ul class="app-header-nav">
         <li class="home">
-          <RouterLink :to="`/category/`"></RouterLink>
+          <RouterLink to="/">首頁</RouterLink>
+        </li>
+        <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
+          <RouterLink :to="`/category/`">{{ item.name }}</RouterLink>
         </li>
       </ul>
 
       <div class="right">
         <RouterLink to="/">品牌</RouterLink>
-        <RouterLink to="/">专题</RouterLink>
+        <RouterLink to="/">專題</RouterLink>
       </div>
     </div>
   </div>
@@ -92,18 +99,20 @@ const { y } = useScroll(window)
     text-align: center;
 
     a {
-      font-size: 16px;
-      line-height: 32px;
-      height: 32px;
-      display: inline-block;
+      font-size: 16px; // 字体大小
+      line-height: 32px; // 行高
+      height: 32px; // 高度
+      display: inline-block; // 内联块元素
 
       &:hover {
-        color: $xtxColor;
-        border-bottom: 1px solid $xtxColor;
+        // 鼠标移入
+        color: $xtxColor; // 字体颜色
+        border-bottom: 1px solid $xtxColor; // 底部边框
       }
     }
 
     .active {
+      // 当前激活状态
       color: $xtxColor;
       border-bottom: 1px solid $xtxColor;
     }

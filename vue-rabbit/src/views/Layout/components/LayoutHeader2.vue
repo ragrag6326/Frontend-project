@@ -2,7 +2,7 @@
 import { useCategoryStore } from '@/stores/category'
 // import HeaderCart from '@/views/Layout/components/HeaderCart.vue'
 
-// 使用pinia中的數據
+// 使用pinia中的数据
 const categoryStore = useCategoryStore()
 </script>
 
