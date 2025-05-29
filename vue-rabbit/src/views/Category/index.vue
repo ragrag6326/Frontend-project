@@ -1,5 +1,5 @@
 <script setup>
-// import GoodsItem from '@/views/Home/componets/GoodsItem.vue'
+import GoodsItem from '@/views/Home/components/GoodsItem.vue'
 // import { useBanner } from '@/views/Category/composables/useBanner'
 // import { useCategory } from '@/views/Category/composables/useCategory'
 
@@ -62,7 +62,7 @@ onMounted(() => {
       </div>
 
       <!--      分类-->
-      <!-- <div class="sub-list">
+      <div class="sub-list">
         <h3>全部分类</h3>
         <ul>
           <li v-for="i in categoryData.children" :key="i.id">
@@ -78,9 +78,9 @@ onMounted(() => {
           <h3>- {{ item.name }}-</h3>
         </div>
         <div class="body">
-          <goods-item v-for="good in item.goods" :good="good" :key="good.id" />
+          <GoodsItem v-for="good in item.goods" :goods="good" :key="good.id" />
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
