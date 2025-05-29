@@ -1,8 +1,18 @@
 import httpInstance from '@/utils/http'
 
-export function getBannerAPI() {
+/**
+ * @description: 獲取倫波圖
+ * @param {*}
+ * @return {*}
+ */
+export function getBannerAPI(params = {}) {
+  // 莫認為1 商品為2
+  const { distributionSite = '1' } = params
   return httpInstance({
     url: '/home/banner',
+    params: {
+      distributionSite,
+    },
   })
 }
 
