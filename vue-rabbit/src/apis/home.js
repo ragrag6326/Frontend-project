@@ -16,3 +16,14 @@ export const findNewAPI = () => {
     url: '/home/new',
   })
 }
+
+/**
+ * @description: 獲取熱門品
+ * @param {*}
+ * @return {*}
+ */
+export const getHotAPI = () => {
+  return httpInstance({
+    url: '/home/hot',
+  })
+}
