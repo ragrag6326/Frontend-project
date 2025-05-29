@@ -10,13 +10,14 @@ import { getCategoryAPI } from '@/apis/category'
 import { getBannerAPI } from '@/apis/home'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { onBeforeRouteUpdate } from 'vue-router'
 
 const route = useRoute()
 
+// 獲取數據
 const categoryData = ref([])
-
-const getCategory = async () => {
-  const res = await getCategoryAPI(route.params.id)
+const getCategory = async (id = route.params.id) => {
+  const res = await getCategoryAPI(id)
   categoryData.value = res.result
 }
 
@@ -24,8 +25,14 @@ onMounted(() => {
   getCategory()
 })
 
-// 獲取 banner
+// 目標:路由參數變化的時候 把分類數據接口重新發送
+onBeforeRouteUpdate((to) => {
+  console.log('路由更新了')
+  // 存在問題 : 使用最新路由參數請求最新的分類數據
+  getCategory(to.params.id)
+})
 
+// 獲取 banner
 const bannerList = ref([])
 const getBanner = async () => {
   const res = await getBannerAPI({
@@ -61,7 +68,7 @@ onMounted(() => {
         </el-carousel>
       </div>
 
-      <!--      分类-->
+      <!-- 分类-->
       <div class="sub-list">
         <h3>全部分类</h3>
         <ul>
