@@ -1,1 +1,1 @@
-<template>人氣推薦</template>
+<template>商品</template>

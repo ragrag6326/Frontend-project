@@ -1,7 +1,7 @@
 <script setup>
-
-import {onMounted, ref} from "vue";
-import {getHotAPI} from "@/apis/home";
+import HomePanel from '@/views/Home/components/HomePanel.vue'
+import { onMounted, ref } from 'vue'
+import { getHotAPI } from '@/apis/home'
 
 const hotList = ref([])
 const getHotList = async () => {
@@ -10,7 +10,7 @@ const getHotList = async () => {
   hotList.value = res.result
 }
 
-onMounted(()=>{
+onMounted(() => {
   getHotList()
 })
 </script>
@@ -20,7 +20,7 @@ onMounted(()=>{
     <ul class="goods-list">
       <li v-for="item in hotList" :key="item.id">
         <RouterLink to="/">
-          <img v-img-lazy="item.picture" alt="">
+          <img v-img-lazy="item.picture" alt="" />
           <p class="name">{{ item.title }}</p>
           <p class="desc">{{ item.alt }}</p>
         </RouterLink>
@@ -29,7 +29,7 @@ onMounted(()=>{
   </HomePanel>
 </template>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .goods-list {
   display: flex;
   justify-content: space-between;
@@ -38,7 +38,7 @@ onMounted(()=>{
   li {
     width: 306px;
     height: 406px;
-    transition: all .5s;
+    transition: all 0.5s;
 
     &:hover {
       transform: translate3d(0, -3px, 0);
