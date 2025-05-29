@@ -1,50 +1,10 @@
 <script setup>
 import GoodsItem from '@/views/Home/components/GoodsItem.vue'
-// import { useBanner } from '@/views/Category/composables/useBanner'
-// import { useCategory } from '@/views/Category/composables/useCategory'
+import { useBanner } from '@/views/Category/composables/useBanner'
+import { useCategory } from '@/views/Category/composables/useCategory'
 
-// const { bannerList } = useBanner()
-// const { categoryData } = useCategory()
-
-import { getCategoryAPI } from '@/apis/category'
-import { getBannerAPI } from '@/apis/home'
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { onBeforeRouteUpdate } from 'vue-router'
-
-const route = useRoute()
-
-// 獲取數據
-const categoryData = ref([])
-const getCategory = async (id = route.params.id) => {
-  const res = await getCategoryAPI(id)
-  categoryData.value = res.result
-}
-
-onMounted(() => {
-  getCategory()
-})
-
-// 目標:路由參數變化的時候 把分類數據接口重新發送
-onBeforeRouteUpdate((to) => {
-  console.log('路由更新了')
-  // 存在問題 : 使用最新路由參數請求最新的分類數據
-  getCategory(to.params.id)
-})
-
-// 獲取 banner
-const bannerList = ref([])
-const getBanner = async () => {
-  const res = await getBannerAPI({
-    distributionSite: '2',
-  })
-  //   console.log(res)
-  bannerList.value = res.result
-}
-
-onMounted(() => {
-  getBanner()
-})
+const { bannerList } = useBanner()
+const { categoryData } = useCategory()
 </script>
 
 <template>
