@@ -1,11 +1,19 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { getCategoryFilterAPI } from '@/apis/category'
+import { useRoute } from 'vue-router'
 
-const categoryData = ref({
-  parentId: 1,
-  parentName: '新鲜水果',
-  name: '新鲜水果',
-  id: 1,
+const route = useRoute()
+
+const categoryData = ref({})
+
+const getCategoryData = async () => {
+  const res = await getCategoryFilterAPI(route.params.id)
+  categoryData.value = res.result
+}
+
+onMounted(() => {
+  getCategoryData()
 })
 </script>
 
