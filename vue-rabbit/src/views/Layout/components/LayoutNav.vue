@@ -1,27 +1,27 @@
 <script setup>
-// import router from "@/router";
-// import {useUserStore} from "@/stores/userStore";
-// import {useRouter} from "vue-router";
+// import router from '@/router'
+import { useUserStore } from '@/stores/userStore'
+import { useRouter } from 'vue-router'
 
-// const userStore = useUserStore()
-// const route=useRouter()
-// const confirm = () => {
-//   console.log('用户要退出登陆了')
+const userStore = useUserStore()
+const route = useRouter()
+const confirm = () => {
+  console.log('用户要退出登陆了')
 
-//   // 退出登录业务逻辑实现
-//   // 1.清除用户信息 触发Action
-//   userStore.clearUserInfo()
+  // 退出登录业务逻辑实现
+  // 1.清除用户信息 触发Action
+  userStore.clearUserInfo()
 
-//   // 2.跳转到登录页
-//   route.push('/login')
-// }
+  // 2.跳转到登录页
+  route.push('/login')
+}
 </script>
 
 <template>
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template>
+        <template v-if="userStore.userInfo.data">
           <li>
             <a href="javascript:;"><i class="iconfont icon-user"></i></a>
           </li>
@@ -40,8 +40,8 @@
           <li><a href="javascript:;">我的订单</a></li>
           <li><a @click="route.push('/member')" href="javascript:;">会员中心</a></li>
         </template>
-        <template>
-          <li><a href="javascript:;" @click="router.push('/login')">请先登录</a></li>
+        <template v-else>
+          <li><a href="javascript:;" @click="route.push('/login')">请先登录</a></li>
           <li><a href="javascript:;">帮助中心</a></li>
           <li><a href="javascript:;">关于我们</a></li>
         </template>

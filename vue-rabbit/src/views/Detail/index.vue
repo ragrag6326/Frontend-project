@@ -4,14 +4,14 @@ import { useRoute } from 'vue-router'
 
 import { getDetail } from '@/apis/detail'
 import DetailHot from '@/views/Detail/components/DetailHot.vue'
-import ImageView from '@/components/ImageView/index.vue'
-// import XtxGoodSku from "@/components/XtxSku/index.vue";
+// import ImageView from '@/components/ImageView/index.vue'
+// import XtxGoodSku from '@/components/XtxSku/index.vue'
 // import {ElMessage} from "element-plus";
-// import {useCartStore} from "@/stores/cartStore";
+import { useCartStore } from '@/stores/cartStore'
 
 const goods = ref({})
 const route = useRoute()
-// const cartStore=useCartStore()
+const cartStore = useCartStore()
 
 const getGoods = async () => {
   const res = await getDetail(route.params.id)
@@ -20,38 +20,38 @@ const getGoods = async () => {
 onMounted(() => getGoods())
 
 // // sku规格被操作时
-// let skuObj={}
-// const skuChange = (sku) => {
-//   console.log(sku)
-//   skuObj=sku
-// }
+let skuObj = {}
+const skuChange = (sku) => {
+  console.log(sku)
+  skuObj = sku
+}
 
 // // count
-// const count = ref(1)
-// const countChange = (count) => {
-//   console.log(count)
-//   count.value=count
-// }
+const count = ref(1)
+const countChange = (newValue) => {
+  count.value = newValue
+}
 
 // // 添加购物车
-// const addCart=()=>{
-//   if (skuObj.skuId) {
-//     // 规则已经选择 触发Action
-//     cartStore.addCart({
-//       id:goods.value.id,
-//       name:goods.value.name,
-//       picture:goods.value.mainPictures[0],
-//       count:count.value,
-//       skuId:skuObj.skuId,
-//       price:skuObj.price,
-//       attrsText:skuObj.specsText,
-//       selected: true,
-//     })
-//   } else {
-//     // 规则没有选择 提示用户
-//     ElMessage.warning('请选择规格')
-//   }
-// }
+const addCart = () => {
+  console.log(skuObj.skuId)
+  if (skuObj.skuId) {
+    // 规则已经选择 触发Action
+    cartStore.addCart({
+      id: goods.value.id,
+      name: goods.value.name,
+      picture: goods.value.mainPictures[0],
+      count: count.value,
+      skuId: skuObj.skuId,
+      price: skuObj.price,
+      attrsText: skuObj.specsText,
+      selected: true,
+    })
+  } else {
+    // 规则没有选择 提示用户
+    ElMessage.warning('请选择规格')
+  }
+}
 </script>
 
 <template>
@@ -80,7 +80,7 @@ onMounted(() => getGoods())
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <image-view :image-list="goods.mainPictures" />
+              <XtxImageView :image-list="goods.mainPictures" />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -129,7 +129,7 @@ onMounted(() => getGoods())
                 </dl>
               </div>
               <!-- sku组件 -->
-              <XtxGoodSku :goods="goods" @change="skuChange" />
+              <XtxSku :goods="goods" @change="skuChange" />
               <!-- 数据组件 -->
               <el-input-number v-model="count" @change="countChange" />
               <!-- 按钮组件 -->

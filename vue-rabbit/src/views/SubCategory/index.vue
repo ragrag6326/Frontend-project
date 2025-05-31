@@ -30,7 +30,7 @@ const reqData = ref({
 // 獲取分類商品列表數據
 const getGoodList = async () => {
   const res = await getSubCategoryAPI(reqData.value)
-  console.log(res)
+  // console.log(res)
   goodList.value = res.result.items
 }
 

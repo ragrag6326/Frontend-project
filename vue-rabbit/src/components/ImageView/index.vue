@@ -3,11 +3,11 @@
 import { ref, watch } from 'vue'
 import { useMouseInElement } from '@vueuse/core'
 
-// props适配图片列表
+// props 圖片列表
 defineProps({
   imageList: {
     type: Array,
-    default: () => {},
+    default: () => [],
   },
 })
 
@@ -94,7 +94,7 @@ watch([elementX, elementY], () => {
       class="large"
       :style="[
         {
-          backgroundImage: `url(${imageList[0]})`,
+          backgroundImage: `url(${imageList[activeIndex]})`,
           backgroundPositionX: `${positionX}px`,
           backgroundPositionY: `${positionY}px`,
         },

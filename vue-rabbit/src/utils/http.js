@@ -1,4 +1,7 @@
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/stores/userStore'
+import router from '@/router'
 
 const httpInstance = axios.create({
   baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
@@ -13,6 +16,11 @@ const httpInstance = axios.create({
 // axios 請求攔截器
 httpInstance.interceptors.request.use(
   (config) => {
+    const UserStore = useUserStore()
+    const token = UserStore.userInfo.data
+    if (token) {
+      config.headers.token = token
+    }
     return config
   },
   (error) => {
@@ -26,7 +34,14 @@ httpInstance.interceptors.response.use(
     return response.data
   },
   (error) => {
-    return Promise.reject(error)
+    if (error.response.status === 401) {
+      // 清除本地用戶信息
+      const UserStore = useUserStore()
+      UserStore.clearUserInfo()
+      router.push('/login')
+    }
+    ElMessage.error(error.response.data.msg || '服務器錯誤')
+    // return Promise.reject(error)
   },
 )
 
