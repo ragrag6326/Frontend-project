@@ -12,15 +12,15 @@ const userStore = useUserStore()
 // 1.准备表单对象
 // 表单数据对象
 const userInfo = ref({
-  username: '',
-  password: '',
+  account: 'cdshi0080',
+  password: '123456',
   agree: '',
 })
 
 // 2.准备规则对象
 // 规则数据对象
 const rules = {
-  username: [{ required: true, message: '用户名不能为空' }],
+  account: [{ required: true, message: '用户名不能为空' }],
   password: [
     { required: true, message: '密码不能为空' },
     { min: 6, max: 24, message: '密码长度要求6-14个字符' },
@@ -44,27 +44,20 @@ const rules = {
 // 3.获取form实例做统一校验
 const formRef = ref(null)
 const doLogin = () => {
-  const { username, password } = userInfo.value
+  const { account, password } = userInfo.value
   // 在用户登录时做统一登录校验
   formRef.value.validate(async (valid) => {
     // valid:所有表单都通过校验 才为true
     // console.log(valid)
     // 以valid作为判断条件 如果通过校验才执行登录逻辑
     if (valid) {
-      await userStore.getUserInfo({ username, password })
+      await userStore.getUserInfo({ account, password })
 
-      // if (res.code !== 200) {
-      // if (account !== 'admin' || password !== '123456') {
-      //   ElMessage({ type: 'warning', message: '用户名或密码错误' })
-      //   return
-      if (userStore.userInfo.code === 1) {
+      if (userStore.userInfo.token) {
         // 1. 提示用户
         ElMessage({ type: 'success', message: '登录成功' })
         // 2.跳转首页
         router.replace({ path: '/' })
-      } else {
-        ElMessage({ type: 'warning', message: '用户名或密码错误' })
-        return
       }
     }
   })
@@ -100,8 +93,8 @@ const doLogin = () => {
               :rules="rules"
               :model="userInfo"
             >
-              <el-form-item label="账户" prop="username">
-                <el-input v-model="userInfo.username" />
+              <el-form-item label="账户" prop="account">
+                <el-input v-model="userInfo.account" />
               </el-form-item>
               <el-form-item label="密码" prop="password">
                 <el-input v-model="userInfo.password" />

@@ -17,9 +17,9 @@ const httpInstance = axios.create({
 httpInstance.interceptors.request.use(
   (config) => {
     const UserStore = useUserStore()
-    const token = UserStore.userInfo.data
+    const token = UserStore.userInfo.token
     if (token) {
-      config.headers.token = token
+      config.headers.Authorization = `Bearer ${token}`
     }
     return config
   },

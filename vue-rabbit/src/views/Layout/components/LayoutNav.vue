@@ -21,9 +21,11 @@ const confirm = () => {
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="userStore.userInfo.data">
+        <template v-if="userStore.userInfo.token">
           <li>
-            <a href="javascript:;"><i class="iconfont icon-user"></i></a>
+            <a href="javascript:;"
+              ><i class="iconfont icon-user">{{ userStore.userInfo.nickname }}</i></a
+            >
           </li>
           <li>
             <el-popconfirm

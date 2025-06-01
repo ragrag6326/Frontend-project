@@ -2,12 +2,12 @@
 
 import httpInstance from '@/utils/http'
 
-export const loginAPI = ({ username, password }) => {
+export const loginAPI = ({ account, password }) => {
   return httpInstance({
-    url: 'http://localhost:8080/login',
+    url: '/login',
     method: 'POST',
     data: {
-      username,
+      account,
       password,
     },
   })
