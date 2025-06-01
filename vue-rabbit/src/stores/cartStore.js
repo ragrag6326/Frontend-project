@@ -29,10 +29,12 @@ export const useCartStore = defineStore(
 
     // 計算屬性
     // 1. 總數 所有項 count 和
-    const allCount = computed(() => cartList.value.reduce((a, c) => a + c.count, 0))
+    const allCount = computed(() => cartList.value.reduce((sum, item) => sum + item.count, 0))
 
     // 2. 總價 count * price
-    const allPrice = computed(() => cartList.value.reduce((a, c) => a + c.count * c.price, 0))
+    const allPrice = computed(() =>
+      cartList.value.reduce((total, product) => total + product.count * product.price, 0),
+    )
 
     return {
       cartList,
