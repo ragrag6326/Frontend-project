@@ -2,12 +2,13 @@
 import { onMounted, ref } from 'vue'
 import { getOrderAPI } from '@/apis/pay'
 import { useRoute } from 'vue-router'
-// import {useCountDown} from "@/composables/useCountDown";
+import { useCountDown } from '@/composables/useCountDown'
 
-// const { formatTime, start } = useCountDown()
+const { formatTime, start } = useCountDown()
 
 const payInfo = ref({})
 const route = useRoute()
+
 // 支付地址
 const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net/'
 const backURL = 'http://127.0.0.1:5173/paycallback'
