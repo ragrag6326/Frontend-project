@@ -1,7 +1,7 @@
 <script setup>
 // tab列表
 import { onMounted, ref } from 'vue'
-// import { getUserOrder } from '@/apis/order'
+import { getUserOrder } from '@/apis/order'
 
 const tabTypes = [
   { name: 'all', label: '全部订单' },
@@ -28,7 +28,7 @@ const getOrderList = async () => {
   // 存入总条数
   total.value = res.result.counts
 }
-// onMounted(() => getOrderList())
+onMounted(() => getOrderList())
 
 // tab切换
 const tabChange = (type) => {
