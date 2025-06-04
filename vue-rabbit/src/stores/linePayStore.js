@@ -2,8 +2,10 @@
 import { v4 as uuidv4 } from 'uuid'
 import axios from 'axios';
 
-const channel_id = '2007515588'; // 填入 channel_id
-const channel_secret = '74e853139114a308c7d0aade4ade3758'; // 填入 channel_secret
+// 註冊 sandbox 取得
+// https://developers-pay.line.me/zh/sandbox#create-sandbox-account
+const channel_id = ''; // 填入 channel_id
+const channel_secret = ''; // 填入 channel_secret
 
 import HmacSHA256 from 'crypto-js/hmac-sha256'
 import Base64 from 'crypto-js/enc-base64'
