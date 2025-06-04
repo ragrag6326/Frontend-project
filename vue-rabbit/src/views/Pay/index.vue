@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { getOrderAPI } from '@/apis/pay'
 import { useRoute } from 'vue-router'
 import { useCountDown } from '@/composables/useCountDown'
+import { paymentRequest } from '@/stores/linePayStore'
 
 const { formatTime, start } = useCountDown()
 
@@ -20,9 +21,24 @@ const getOrder = async () => {
   const res = await getOrderAPI(route.query.id)
   payInfo.value = res.result
 
+  // console.log(payInfo);
   // 初始化倒计时秒数
   start(res.result.countdown)
 }
+
+// const linePayUrl = ref('')
+const loading = ref(false)
+
+const handleLinePay = async () => {
+  if (loading.value) return
+
+  loading.value = true
+  const payUrl = await paymentRequest( payInfo.value.id  , payInfo.value.skus )
+  console.log(payUrl);
+  window.location.href = payUrl
+  
+}  
+
 onMounted(() => getOrder())
 </script>
 
@@ -51,6 +67,10 @@ onMounted(() => getOrder())
           <p>支付平台</p>
           <a class="btn wx" href="javascript:;"></a>
           <a class="btn alipay" :href="payUrl"></a>
+          <!-- <a class="btn linePay" @click="linePay()"></a> -->
+          <a class="btn linePay" href="javascript:;" @click.prevent="handleLinePay" :disabled="loading" ></a>
+
+
         </div>
         <div class="item">
           <p>支付方式</p>
@@ -152,6 +172,11 @@ onMounted(() => getOrder())
 
     &.wx {
       background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c66f98cff8649bd5ba722c2e8067c6ca.jpg)
+        no-repeat center / contain;
+    }
+
+    &.linePay {
+      background: url(https://event.esunbank.com.tw/credit/1120328cardlink/images/cardlink_app_logo_G.svg)
         no-repeat center / contain;
     }
   }
